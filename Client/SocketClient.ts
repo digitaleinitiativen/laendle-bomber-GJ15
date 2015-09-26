@@ -1,4 +1,5 @@
 ///<reference path="Observer.ts"/>
+///<reference path="socket.io/socket.io.d.ts"/>
 
 class SocketClient implements Observer {
 
