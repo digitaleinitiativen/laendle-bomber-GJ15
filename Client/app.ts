@@ -29,7 +29,7 @@ class LaendleBomber {
     preload() {
         console.log(this.game);
         this.game.load.image('player', 'assets/player.png');
-        this.game.load.spritesheet('bomb', 'assets/bomb.png', 17, 17);
+        this.game.load.spritesheet('bomb', 'assets/bomb.png', 32, 32);
         this.game.load.tilemap('map', 'assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/maps/BombMap1.png');
     }
@@ -61,7 +61,7 @@ class LaendleBomber {
         this.spacebar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.player = new Player(this.game.add.sprite(33, 33, 'player'));
-        this.player.id = guid();
+        this.player.id = Game.guid();
 
         this.game.physics.enable(this.player.sprite);
         this.game.camera.follow(this.player.sprite);
@@ -83,6 +83,8 @@ class LaendleBomber {
     }
 
     update() {
+        this.game2.onUpdate();
+
         this.game.physics.arcade.collide(this.player.sprite, this.layerWalls);
         this.game.physics.arcade.collide(this.player.sprite, this.layerBlocks);
 
@@ -114,14 +116,3 @@ window.onload = () => {
     var game = new LaendleBomber();
 
 };
-
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-}
