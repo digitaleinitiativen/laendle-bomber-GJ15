@@ -103,8 +103,11 @@ class Game implements Observer, GameObject {
         this.objects[bomb.id] = bomb;
     }
 
-    removeTile(x:number, y:number) {
-        this.map.removeTile(x, y, this.game.layerBlocks);
+    removeTileBlock(x: number, y: number) {
+        console.log(this.map);
+        if (this.map.hasTile(x, y, this.game.layerBlocks)) {
+            this.map.removeTile(x, y, this.game.layerBlocks);
+        }
     }
 
     onObservedEvent(type:string, arg:any) {

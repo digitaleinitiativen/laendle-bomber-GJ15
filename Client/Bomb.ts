@@ -36,20 +36,26 @@ class Bomb implements GameObject {
             var s = this.game.game.add.sprite(this.sprite.x - 32, this.sprite.y, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
+            var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
+            this.game.game2.removeTileBlock(xy.x, xy.y);
 
             s = this.game.game.add.sprite(this.sprite.x + 32, this.sprite.y, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
+            var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
+            this.game.game2.removeTileBlock(xy.x, xy.y);
 
             s = this.game.game.add.sprite(this.sprite.x , this.sprite.y - 32, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
+            var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
+            this.game.game2.removeTileBlock(xy.x, xy.y);
 
             s = this.game.game.add.sprite(this.sprite.x, this.sprite.y + 32, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
-            //this.game.game1.layerBlocks.getTileXY(sprite.x, sprite.y);
-            //this.game.game1.layerBlocks.getTileXY(sprite.x, sprite.y);
+            var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
+            this.game.game2.removeTileBlock(xy.x, xy.y);
         }
     }
 
