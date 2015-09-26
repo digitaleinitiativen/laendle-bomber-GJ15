@@ -33,29 +33,32 @@ class Bomb implements GameObject {
             this.sprite.animations.play("explode");
             this.remove = true;
 
+            var xy = Game.calculateTilePosition(this.game.game2.map, this.sprite.x, this.sprite.y);
+            this.game.game2.onBomb(xy.x, xy.y);
+
             var s = this.game.game.add.sprite(this.sprite.x - 32, this.sprite.y, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
             var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
-            this.game.game2.removeTileBlock(xy.x, xy.y);
+            this.game.game2.onBomb(xy.x, xy.y);
 
             s = this.game.game.add.sprite(this.sprite.x + 32, this.sprite.y, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
             var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
-            this.game.game2.removeTileBlock(xy.x, xy.y);
+            this.game.game2.onBomb(xy.x, xy.y);
 
             s = this.game.game.add.sprite(this.sprite.x , this.sprite.y - 32, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
             var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
-            this.game.game2.removeTileBlock(xy.x, xy.y);
+            this.game.game2.onBomb(xy.x, xy.y);
 
             s = this.game.game.add.sprite(this.sprite.x, this.sprite.y + 32, "bomb")
             s.animations.add("explode", [46, 38, 30], 10, false).killOnComplete = true;
             s.animations.play("explode");
             var xy = Game.calculateTilePosition(this.game.game2.map, s.x, s.y);
-            this.game.game2.removeTileBlock(xy.x, xy.y);
+            this.game.game2.onBomb(xy.x, xy.y);
         }
     }
 
@@ -69,5 +72,9 @@ class Bomb implements GameObject {
 
 
     updatePosition(position: any) {
+    }
+
+    getPosition(): any {
+        return { x: this.sprite.x, y: this.sprite.y };
     }
 }

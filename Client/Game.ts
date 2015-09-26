@@ -103,10 +103,24 @@ class Game implements Observer, GameObject {
         this.objects[bomb.id] = bomb;
     }
 
-    removeTileBlock(x: number, y: number) {
-        console.log(this.map);
+    onBomb(x: number, y: number) {
+        
         if (this.map.hasTile(x, y, this.game.layerBlocks)) {
             this.map.removeTile(x, y, this.game.layerBlocks);
+        }
+
+        for (var key in this.objects) {
+            var object = this.objects[key];
+            var xy = Game.calculateTilePosition(this.game.game2.map, object.getPosition().x, object.getPosition().y);
+            if (xy.x == x && xy.y == y)
+            {
+                object.delete();
+            }
+        }
+
+        var xy = Game.calculateTilePosition(this.game.game2.map, this.player.getPosition().x, this.player.getPosition().y);
+        if (xy.x == x && xy.y == y) {
+            this.player.delete();
         }
     }
 
@@ -142,5 +156,9 @@ class Game implements Observer, GameObject {
 
     updatePosition(position: any) {
        
+    }
+
+    getPosition(): any {
+        return null;
     }
 }

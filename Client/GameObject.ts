@@ -3,4 +3,5 @@ interface GameObject {
     isDecayed() : boolean;
     delete(): void;
     updatePosition(position: any): void;
+    getPosition(): any;
 }
