@@ -1,1 +1,1 @@
-﻿declare function io(url:any): void;
+﻿declare function io(url:any, opts: any): void;
