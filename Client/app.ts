@@ -35,8 +35,7 @@ class LaendleBomber {
     }
 
     create() {
-        this.game2 = new Game();
-        this.game2.phaser = this.game;
+        this.game2 = new Game(this);
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -65,8 +64,8 @@ class LaendleBomber {
 
         if (this.game2.player != undefined && this.game2.player != null) {
 
-            this.game2.phaser.physics.arcade.collide(this.game2.player.sprite, this.layerWalls);
-            this.game2.phaser.physics.arcade.collide(this.game2.player.sprite, this.layerBlocks);
+            this.game.physics.arcade.collide(this.game2.player.sprite, this.layerWalls);
+            this.game.physics.arcade.collide(this.game2.player.sprite, this.layerBlocks);
 
             if (this.cursors.left.isDown) {
                 this.game2.player.sprite.body.velocity.x = -100;
@@ -85,7 +84,7 @@ class LaendleBomber {
 
             this.game2.socketClient.onObservedEvent('move', this.game2.player.getPosition());
         }
-
+        
     }
 
     render() {

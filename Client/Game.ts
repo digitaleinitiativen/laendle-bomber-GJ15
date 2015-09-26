@@ -7,15 +7,15 @@
 
 class Game implements Observer, GameObject {
 
-    phaser:Phaser.Game;
+    game: LaendleBomber;
     map:Phaser.Tilemap;
     player:Player;
     socketClient:SocketClient;
 
     objects:{[id: string] : GameObject; } = {};
 
-
-    constructor() {
+    constructor(game: LaendleBomber) {
+        this.game = game;
         this.socketClient = new SocketClient(this);
         this.socketClient.init();
     }
@@ -54,10 +54,10 @@ class Game implements Observer, GameObject {
     }
 
     createSelf(id:string) {
-        this.player = new Player(id, this.phaser.add.sprite(33, 33, 'player'));
+        this.player = new Player(id, this.game.game.add.sprite(33, 33, 'player'));
 
-        this.phaser.physics.enable(this.player.sprite);
-        this.phaser.camera.follow(this.player.sprite);
+        this.game.game.physics.enable(this.player.sprite);
+        this.game.game.camera.follow(this.player.sprite);
 
         this.player.sprite.body.bounce.set(0.0);
         this.player.sprite.body.tilePadding.set(32);
@@ -66,7 +66,7 @@ class Game implements Observer, GameObject {
         this.player.registerObserver(this.socketClient);
         this.player.registerObserver(this);
 
-        this.phaser.input.keyboard.onDownCallback = (e:KeyboardEvent) => {
+        this.game.game.input.keyboard.onDownCallback = (e:KeyboardEvent) => {
             if (e.keyCode == Phaser.Keyboard.SPACEBAR) {
                 var tilePos = Game.calculateTilePosition(this.map, this.player.getXCentral(), this.player.getYCentral());
                 this.player.putBomb(tilePos.x, tilePos.y);
@@ -75,8 +75,8 @@ class Game implements Observer, GameObject {
     }
 
     createPlayer(id:string) {
-        var player = new Player(id, this.phaser.add.sprite(33, 33, 'player'));
-        this.phaser.physics.enable(player.sprite);
+        var player = new Player(id, this.game.game.add.sprite(33, 33, 'player'));
+        this.game.game.physics.enable(player.sprite);
 
         player.sprite.body.bounce.set(0.0);
         player.sprite.body.tilePadding.set(32);
@@ -97,7 +97,7 @@ class Game implements Observer, GameObject {
 
     addBomb(owner:string, x:number, y:number, time:number) {
         var tileCenter = Game.calculatePixelPosition(this.map, x, y);
-        var bomb = new Bomb(Game.guid(), this.phaser.add.sprite(tileCenter.x, tileCenter.y, "bomb"), time, owner);
+        var bomb = new Bomb(this.game, Game.guid(), this.game.game.add.sprite(tileCenter.x, tileCenter.y, "bomb"), time, owner);
 
         this.objects[bomb.id] = bomb;
     }
