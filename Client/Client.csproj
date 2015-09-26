@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -38,6 +38,8 @@
     <TypeScriptCompile Include="phaser\phaser.d.ts" />
     <TypeScriptCompile Include="phaser\pixi.d.ts" />
     <TypeScriptCompile Include="Player.ts" />
+    <TypeScriptCompile Include="socket.io\node.d.ts" />
+    <TypeScriptCompile Include="socket.io\socket.io.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\tilemap1.json" />

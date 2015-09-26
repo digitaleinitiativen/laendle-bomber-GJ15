@@ -12,6 +12,14 @@
     <script src="app.js"></script>
     <script src="Game.js"></script>
     <script src="Player.js"></script>
+    <script>
+        var socket = io('http://localhost:19110');
+  socket.on('connect', function () {
+      console.log('connected');
+  });
+  socket.on('event', function(data){});
+  socket.on('disconnect', function(){});
+    </script>
 </head>
 <body>
     <div id="content"></div>

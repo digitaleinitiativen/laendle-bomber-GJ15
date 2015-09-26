@@ -1,6 +1,7 @@
 ///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Player.ts"/>
 ///<reference path="Game.ts"/>
+///<reference path="socket.io/socket.io.d.ts"/>
 
 class LaendleBomber {
 
@@ -8,6 +9,7 @@ class LaendleBomber {
         this.game = new Phaser.Game(800, 800, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update, render: this.render });
     }
 
+    socket: any;
     game: Phaser.Game;
     map: Phaser.Tilemap;
     layerWalls: Phaser.TilemapLayer;
@@ -26,6 +28,14 @@ class LaendleBomber {
 
     create() {
         this.g = new Game();
+
+        this.socket = io('http://localhost:19110');
+        this.socket.on('connect', function () {
+            console.log('connected');
+        });
+        this.socket.on('event', function (data) { });
+        this.socket.on('disconnect', function () { });
+
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -81,7 +91,7 @@ class LaendleBomber {
         }
 
         if(this.spacebar.isDown) {
-            this.g.calculateTilePosition(this.player.x, this.player.y);
+            this.g.calculateTilePosition(this.player.sprite.x, this.player.sprite.y);
         }
     }
 
@@ -94,5 +104,4 @@ class LaendleBomber {
 window.onload = () => {
 
     var game = new LaendleBomber();
-
 };

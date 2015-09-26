@@ -1,0 +1,1 @@
+﻿declare function io(url:any): void;
