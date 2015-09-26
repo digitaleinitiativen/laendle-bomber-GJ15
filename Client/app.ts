@@ -1,6 +1,6 @@
 ///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Player.ts"/>
-///<reference path="Game1.ts"/>
+///<reference path="Game.ts"/>
 interface ILaendleBomber {
     xxx(): void;
 }
@@ -18,7 +18,7 @@ class LaendleBomber implements ILaendleBomber{
     layerFloor: Phaser.TilemapLayer;
     cursors: Phaser.CursorKeys;
     player: Player;
-    g: Game1;
+    g: Game;
 
     preload() {
         this.game.load.image('player', 'assets/player.png');

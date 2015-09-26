@@ -1,5 +1,5 @@
-﻿///<reference path="App.ts"/>
-class Game1 {
+﻿
+class Game {
     constructor() {
          }
     xxx() {
