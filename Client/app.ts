@@ -1,6 +1,7 @@
 ///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Player.ts"/>
 ///<reference path="Game.ts"/>
+///<reference path="SocketClient.ts"/>
 
 class LaendleBomber {
 
@@ -17,6 +18,7 @@ class LaendleBomber {
     spacebar: Phaser.Key;
     player: Player;
     g: Game;
+    socketClient: SocketClient;
 
     preload() {
         this.game.load.image('player', 'assets/player.png');
@@ -26,6 +28,7 @@ class LaendleBomber {
 
     create() {
         this.g = new Game();
+        this.socketClient = new SocketClient();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -49,6 +52,7 @@ class LaendleBomber {
         this.spacebar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.player = new Player(this.game.add.sprite(33, 33, 'player'));
+        this.player.id = guid();
 
         this.game.physics.enable(this.player.sprite);
         //this.player.body.gravity.x = 1;
@@ -58,6 +62,16 @@ class LaendleBomber {
         this.player.sprite.body.bounce.set(0.0);
         this.player.sprite.body.tilePadding.set(32);
         this.player.sprite.body.collideWorldBounds = true;
+
+        this.player.registerObserver(this.socketClient);
+
+        var callee = this;
+        this.game.input.keyboard.onDownCallback = function(e : KeyboardEvent)  {
+            if(e.keyCode == Phaser.Keyboard.SPACEBAR) {
+                var tilePos = Game.calculateTilePosition(callee.map, callee.player.getXCentral(), callee.player.getYCentral());
+                callee.player.putBomb(tilePos.x, tilePos.y);
+            }
+        }
     }
 
     update() {
@@ -79,10 +93,6 @@ class LaendleBomber {
             this.player.sprite.body.velocity.y = 100;
             this.player.sprite.body.velocity.x = 0;
         }
-
-        if(this.spacebar.isDown) {
-            this.g.calculateTilePosition(this.player.x, this.player.y);
-        }
     }
 
     render() {
@@ -96,3 +106,13 @@ window.onload = () => {
     var game = new LaendleBomber();
 
 };
+
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+}

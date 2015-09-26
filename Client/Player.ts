@@ -12,6 +12,13 @@ class Player extends ConcreteObservable {
         this.sprite = sprite;
     }
 
+    getXCentral() : number {
+        return this.sprite.x + this.sprite.width / 2;
+    }
+
+    getYCentral() : number {
+        return this.sprite.y + this.sprite.height / 2;
+    }
 
     putBomb(x, y) {
         this.notifyObservers("bomb", [this.id, x, y]);
