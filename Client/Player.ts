@@ -44,7 +44,7 @@ class Player extends ConcreteObservable implements GameObject {
         return false;
     }
 
-    delete():void {
+    delete(): void {
         this.sprite.destroy();
     }
 
