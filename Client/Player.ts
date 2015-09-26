@@ -1,4 +1,4 @@
-﻿///<reference path="Observer.ts"/>
+///<reference path="Observer.ts"/>
 ///<reference path="Observable.ts"/>
 ///<reference path="phaser/phaser.d.ts"/>
 
