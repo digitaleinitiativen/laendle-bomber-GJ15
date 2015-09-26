@@ -13,6 +13,7 @@ class LaendleBomber {
     layerBlocks: Phaser.TilemapLayer;
     layerFloor: Phaser.TilemapLayer;
     cursors: Phaser.CursorKeys;
+    spacebar: Phaser.Key;
     player: Player;
 
     preload() {
@@ -42,6 +43,7 @@ class LaendleBomber {
         this.map.setCollision(34, true, this.layerBlocks);
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.spacebar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.player = this.game.add.sprite(33, 33, 'player');
 
@@ -74,12 +76,17 @@ class LaendleBomber {
             this.player.body.velocity.y = 100;
             this.player.body.velocity.x = 0;
         }
+
+        if(this.spacebar.isDown) {
+            this.methods.calculateTilePosition(this.player.x, this.player.y).bind(this);
+        }
     }
 
     render() {
 
     }
 }
+
 
 window.onload = () => {
 
