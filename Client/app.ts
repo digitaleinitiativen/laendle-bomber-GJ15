@@ -16,29 +16,27 @@ class LaendleBomber {
         });
     }
 
-    game : Phaser.Game;
+    game:Phaser.Game;
     layerWalls:Phaser.TilemapLayer;
     layerBlocks:Phaser.TilemapLayer;
     layerFloor:Phaser.TilemapLayer;
     cursors:Phaser.CursorKeys;
     spacebar:Phaser.Key;
-    player:Player;
+
     game2:Game;
-    socketClient:SocketClient;
+
 
     preload() {
         console.log(this.game);
-        this.game.load.image('player', 'assets/player.png');
-        this.game.load.spritesheet('bomb', 'assets/bomb.png', 32, 32);
-        this.game.load.tilemap('map', 'assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('tiles', 'assets/maps/BombMap1.png');
+        this.game.load.image('player', '/game/Client/assets/player.png');
+        this.game.load.spritesheet('bomb', '/game/Client/assets/bomb.png', 32, 32);
+        this.game.load.tilemap('map', '/game/Client/assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles', '/game/Client/assets/maps/BombMap1.png');
     }
 
     create() {
         this.game2 = new Game();
         this.game2.phaser = this.game;
-        this.socketClient = new SocketClient();
-        this.socketClient.init();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -60,50 +58,34 @@ class LaendleBomber {
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.spacebar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-        this.player = new Player(this.game.add.sprite(33, 33, 'player'));
-        this.player.id = Game.guid();
-
-        this.game.physics.enable(this.player.sprite);
-        this.game.camera.follow(this.player.sprite);
-
-        this.player.sprite.body.bounce.set(0.0);
-        this.player.sprite.body.tilePadding.set(32);
-        this.player.sprite.body.collideWorldBounds = true;
-
-        this.player.registerObserver(this.socketClient);
-        this.player.registerObserver(this.game2);
-
-        var callee = this;
-        this.game.input.keyboard.onDownCallback = function (e:KeyboardEvent) {
-            if (e.keyCode == Phaser.Keyboard.SPACEBAR) {
-                var tilePos = Game.calculateTilePosition(callee.game2.map, callee.player.getXCentral(), callee.player.getYCentral());
-                callee.player.putBomb(tilePos.x, tilePos.y);
-            }
-        }
     }
 
     update() {
         this.game2.onUpdate();
 
-        this.game.physics.arcade.collide(this.player.sprite, this.layerWalls);
-        this.game.physics.arcade.collide(this.player.sprite, this.layerBlocks);
+        if (this.game2.player != undefined && this.game2.player != null) {
 
-        if (this.cursors.left.isDown) {
-            this.player.sprite.body.velocity.x = -100;
-            this.player.sprite.body.velocity.y = 0;
+            this.game2.phaser.physics.arcade.collide(this.game2.player.sprite, this.layerWalls);
+            this.game2.phaser.physics.arcade.collide(this.game2.player.sprite, this.layerBlocks);
+
+            if (this.cursors.left.isDown) {
+                this.game2.player.sprite.body.velocity.x = -100;
+                this.game2.player.sprite.body.velocity.y = 0;
+            }
+            else if (this.cursors.right.isDown) {
+                this.game2.player.sprite.body.velocity.x = 100;
+                this.game2.player.sprite.body.velocity.y = 0;
+            } else if (this.cursors.up.isDown) {
+                this.game2.player.sprite.body.velocity.y = -100;
+                this.game2.player.sprite.body.velocity.x = 0;
+            } else if (this.cursors.down.isDown) {
+                this.game2.player.sprite.body.velocity.y = 100;
+                this.game2.player.sprite.body.velocity.x = 0;
+            }
+
+            this.game2.socketClient.onObservedEvent('move', this.game2.player.getPosition());
         }
-        else if (this.cursors.right.isDown) {
-            this.player.sprite.body.velocity.x = 100;
-            this.player.sprite.body.velocity.y = 0;
-        } else if (this.cursors.up.isDown) {
-            this.player.sprite.body.velocity.y = -100;
-            this.player.sprite.body.velocity.x = 0;
-        }
-        else if (this.cursors.down.isDown) {
-            this.player.sprite.body.velocity.y = 100;
-            this.player.sprite.body.velocity.x = 0;
-        }
+
     }
 
     render() {

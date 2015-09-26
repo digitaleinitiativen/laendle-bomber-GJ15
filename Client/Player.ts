@@ -1,14 +1,24 @@
 ///<reference path="Observer.ts"/>
 ///<reference path="Observable.ts"/>
 ///<reference path="phaser/phaser.d.ts"/>
+///<reference path="GameObject.ts"/>
 
-class Player extends ConcreteObservable {
+class Player extends ConcreteObservable implements GameObject {
+
+    onUpdate():void {
+
+    }
+
+    isDecayed():boolean {
+        return false;
+    }
 
     sprite:Phaser.Sprite;
     id:string;
 
-    constructor(sprite:Phaser.Sprite) {
+    constructor(id:string, sprite:Phaser.Sprite) {
         super();
+        this.id = id;
         this.sprite = sprite;
     }
 
@@ -22,5 +32,14 @@ class Player extends ConcreteObservable {
 
     putBomb(x, y) {
         this.notifyObservers("bomb", {id: this.id, x : x, y : y, time: 100});
+    }
+
+    updatePosition(position:any) {
+        this.sprite.x = position.x;
+        this.sprite.y = position.y;
+    }
+
+    getPosition() : any {
+        return {x: this.sprite.x, y: this.sprite.y};
     }
 }
