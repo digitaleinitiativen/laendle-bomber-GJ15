@@ -27,7 +27,7 @@ class LaendleBomber {
 
 
     preload() {
-        console.log(this.game);
+        this.game.stage.disableVisibilityChange = true;
         this.game.load.image('player', '/game/Client/assets/player.png');
         this.game.load.spritesheet('bomb', '/game/Client/assets/bomb.png', 32, 32);
         this.game.load.tilemap('map', '/game/Client/assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);

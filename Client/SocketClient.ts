@@ -47,7 +47,12 @@ class SocketClient implements Observer {
 
         this.socket.on('player-moves', ({identifier, position}) => {
             this.game.setPosition(identifier, position);
-        })
+        });
+
+        this.socket.on('bomb-placed', ({identifier, x, y, time}) => {
+            console.log("Bomb placed", identifier, x, y, time);
+            this.game.addBomb(identifier, x, y, time);
+        });
     }
 
     onObservedEvent(type: string, arg: any) {
@@ -55,7 +60,7 @@ class SocketClient implements Observer {
         if(this.connected) {
             switch (type) {
                 case "bomb":
-                    console.log("Bomb placed", arg);
+                    this.socket.emit("bomb", {x: arg.x, y: arg.y, time: arg.time});
                     break;
                 case "move":
                     this.socket.emit("move", arg);
