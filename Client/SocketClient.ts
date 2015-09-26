@@ -7,6 +7,7 @@ class SocketClient implements Observer {
     socket: any;
     game: Game;
     connected : boolean;
+    id: string;
 
     constructor(game:Game) {
         this.game = game;
@@ -28,12 +29,10 @@ class SocketClient implements Observer {
         });
 
         this.socket.on('ehlo', (data) => {
-            console.log(data);
-            var id = data.id;
-            this.game.createSelf(id);
+            this.id = data.id;
+            this.game.createSelf(this.id);
 
             for(var key in data.players) {
-                console.log("PlayerID", data.players[key]);
                 this.game.createPlayer(data.players[key]);
             }
         });
@@ -41,7 +40,6 @@ class SocketClient implements Observer {
             this.game.deletePlayer(identifier);
         });
         this.socket.on('new-player', (identifier) => {
-            console.log("New Player", identifier);
             this.game.createPlayer(identifier);
         });
 
@@ -50,8 +48,11 @@ class SocketClient implements Observer {
         });
 
         this.socket.on('bomb-placed', ({identifier, x, y, time}) => {
-            console.log("Bomb placed", identifier, x, y, time);
             this.game.addBomb(identifier, x, y, time);
+        });
+
+        this.socket.on('player-die', ({identifier}) => {
+            this.game.playerDies(identifier);
         });
     }
 
@@ -64,6 +65,11 @@ class SocketClient implements Observer {
                     break;
                 case "move":
                     this.socket.emit("move", arg);
+                    break;
+                case "die":
+                    if(arg.id == this.id) {
+                        this.socket.emit("die", arg);
+                    }
                     break;
             }
         }

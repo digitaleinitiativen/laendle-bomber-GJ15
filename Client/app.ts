@@ -62,7 +62,7 @@ class LaendleBomber {
     update() {
         this.game2.onUpdate();
 
-        if (this.game2.player != undefined && this.game2.player != null) {
+        if (this.game2.player != undefined && this.game2.player != null && !this.game2.player.dead) {
 
             this.game.physics.arcade.collide(this.game2.player.sprite, this.layerWalls);
             this.game.physics.arcade.collide(this.game2.player.sprite, this.layerBlocks);
