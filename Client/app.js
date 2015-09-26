@@ -4,8 +4,8 @@
 ///<reference path="SocketClient.ts"/>
 ///<reference path="Observer.ts"/>
 ///<reference path="Bomb.ts"/>
-var LaendleBomber = (function () {
-    function LaendleBomber() {
+class LaendleBomber {
+    constructor() {
         this.game = new Phaser.Game(800, 800, Phaser.AUTO, 'content', {
             preload: this.preload,
             create: this.create,
@@ -13,17 +13,18 @@ var LaendleBomber = (function () {
             render: this.render
         });
     }
-    LaendleBomber.prototype.preload = function () {
+    preload() {
         console.log(this.game);
         this.game.load.image('player', 'assets/player.png');
         this.game.load.spritesheet('bomb', 'assets/bomb.png', 17, 17);
         this.game.load.tilemap('map', 'assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/maps/BombMap1.png');
-    };
-    LaendleBomber.prototype.create = function () {
+    }
+    create() {
         this.game2 = new Game();
         this.game2.phaser = this.game;
         this.socketClient = new SocketClient();
+        this.socketClient.init();
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
         this.game2.map = this.game.add.tilemap('map');
@@ -54,8 +55,8 @@ var LaendleBomber = (function () {
                 callee.player.putBomb(tilePos.x, tilePos.y);
             }
         };
-    };
-    LaendleBomber.prototype.update = function () {
+    }
+    update() {
         this.game.physics.arcade.collide(this.player.sprite, this.layerWalls);
         this.game.physics.arcade.collide(this.player.sprite, this.layerBlocks);
         if (this.cursors.left.isDown) {
@@ -74,12 +75,11 @@ var LaendleBomber = (function () {
             this.player.sprite.body.velocity.y = 100;
             this.player.sprite.body.velocity.x = 0;
         }
-    };
-    LaendleBomber.prototype.render = function () {
-    };
-    return LaendleBomber;
-})();
-window.onload = function () {
+    }
+    render() {
+    }
+}
+window.onload = () => {
     var game = new LaendleBomber();
 };
 function guid() {

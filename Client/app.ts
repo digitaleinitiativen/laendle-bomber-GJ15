@@ -38,6 +38,7 @@ class LaendleBomber {
         this.game2 = new Game();
         this.game2.phaser = this.game;
         this.socketClient = new SocketClient();
+        this.socketClient.init();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
