@@ -29,6 +29,7 @@ class LaendleBomber {
     preload() {
         console.log(this.game);
         this.game.load.image('player', 'assets/player.png');
+        this.game.load.spritesheet('bomb', 'assets/bomb.png', 17, 17);
         this.game.load.tilemap('map', 'assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/maps/BombMap1.png');
     }

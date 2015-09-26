@@ -1,7 +1,8 @@
 ﻿///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Bomb.ts"/>
+///<reference path="Observer.ts"/>
 
-class Game {
+class Game implements Observer {
 
     phaser : Phaser.Game;
     map : Phaser.Tilemap;
@@ -18,19 +19,22 @@ class Game {
     }
 
     /**
-     * Returns the center position of the tile in pixels
+     * Returns the position of the tile in pixels
      * @param map
      * @param x The x position of the tile
      * @param y The y position of the tile
      * @returns {{x: number, y: number}}
      */
     static calculatePixelPosition(map:Phaser.Tilemap, x:number, y:number) {
-        return {x: x * map.tileWidth + map.tileWidth / 2, y: y * map.tileHeight + map.tileHeight / 2};
+        return {x: x * map.tileWidth, y: y * map.tileHeight };
     }
 
     addBomb(owner : string, x : number, y : number, time : number) {
         var tileCenter = Game.calculatePixelPosition(this.map, x, y);
-        var bomb = new Bomb(this.phaser.add.sprite(tileCenter.x, tileCenter.y), time, owner);
+        var bomb = new Bomb(this.phaser.add.sprite(tileCenter.x + 8, tileCenter.y + 8, "bomb"), time, owner);
+        bomb.sprite.animations.add("stand", [1, 2, 3], 1, true);
+        bomb.sprite.animations.play("stand");
+
         console.log(bomb);
     }
 
