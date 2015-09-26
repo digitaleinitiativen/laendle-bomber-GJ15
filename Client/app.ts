@@ -27,7 +27,7 @@ class LaendleBomber implements ILaendleBomber{
     }
 
     create() {
-        this.g = new Game1();
+        this.g = new Game();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -49,36 +49,36 @@ class LaendleBomber implements ILaendleBomber{
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.player = this.game.add.sprite(33, 33, 'player');
+        this.player = new Player(this.game.add.sprite(33, 33, 'player'));
 
-        this.game.physics.enable(this.player);
+        this.game.physics.enable(this.player.sprite);
         //this.player.body.gravity.x = 1;
         //this.player.body.gravity.y = 1;
-        this.game.camera.follow(this.player);
+        this.game.camera.follow(this.player.sprite);
 
-        this.player.body.bounce.set(0.0);
-        this.player.body.tilePadding.set(32);
-        this.player.body.collideWorldBounds = true;
+        this.player.sprite.body.bounce.set(0.0);
+        this.player.sprite.body.tilePadding.set(32);
+        this.player.sprite.body.collideWorldBounds = true;
     }
 
     update() {
-        this.game.physics.arcade.collide(this.player, this.layerWalls);
-        this.game.physics.arcade.collide(this.player, this.layerBlocks);
+        this.game.physics.arcade.collide(this.player.sprite, this.layerWalls);
+        this.game.physics.arcade.collide(this.player.sprite, this.layerBlocks);
 
         if (this.cursors.left.isDown) {
-            this.player.body.velocity.x = -100;
-            this.player.body.velocity.y = 0;
+            this.player.sprite.body.velocity.x = -100;
+            this.player.sprite.body.velocity.y = 0;
         }
         else if (this.cursors.right.isDown) {
-            this.player.body.velocity.x = 100;
-            this.player.body.velocity.y = 0;
+            this.player.sprite.body.velocity.x = 100;
+            this.player.sprite.body.velocity.y = 0;
         } else if (this.cursors.up.isDown) {
-            this.player.body.velocity.y = -100;
-            this.player.body.velocity.x = 0;
+            this.player.sprite.body.velocity.y = -100;
+            this.player.sprite.body.velocity.x = 0;
         }
         else if (this.cursors.down.isDown) {
-            this.player.body.velocity.y = 100;
-            this.player.body.velocity.x = 0;
+            this.player.sprite.body.velocity.y = 100;
+            this.player.sprite.body.velocity.x = 0;
         }
 
         this.g.xxx();
