@@ -50,8 +50,9 @@ class LaendleBomber {
         //this.player.body.gravity.y = 1;
         this.game.camera.follow(this.player);
 
-        this.player.body.bounce.set(0.6);
+        this.player.body.bounce.set(0.0);
         this.player.body.tilePadding.set(32);
+        this.player.body.collideWorldBounds = true;
     }
 
     update() {
