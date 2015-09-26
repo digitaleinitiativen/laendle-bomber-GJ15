@@ -2,22 +2,16 @@
 ///<reference path="Observable.ts"/>
 ///<reference path="phaser/phaser.d.ts"/>
 
-class Player extends Phaser.Sprite implements Observable {
+class Player extends ConcreteObservable {
 
-    id : string;
-    observer : ConcreteObservable;
+    sprite:Phaser.Sprite;
+    id:string;
 
-    registerObserver(observer:Observer):void {
-        this.observer.registerObserver(observer);
+    constructor(sprite:Phaser.Sprite) {
+        super();
+        this.sprite = sprite;
     }
 
-    removeObserver(observer:Observer):void {
-        this.observer.removeObserver(observer);
-    }
-
-    notifyObservers(type:string, arg:any):void {
-        this.observer.notifyObservers(type, arg);
-    }
 
     putBomb(x, y) {
         this.notifyObservers("bomb", [this.id, x, y]);
