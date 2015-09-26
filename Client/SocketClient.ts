@@ -14,7 +14,7 @@ class SocketClient implements Observer {
     }
 
     init() {
-        this.socket = io('', { path: '/api/game', transports: ['polling'] });
+        this.socket = io('', { path: '/api/game', transports: ['websocket'] });
         this.socket.on('connect', () => {
             this.connected = true;
         });
