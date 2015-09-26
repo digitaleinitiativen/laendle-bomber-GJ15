@@ -24,7 +24,7 @@ class LaendleBomber {
     create() {
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.game.world.setBounds(0, 0, 800, 800);
+        this.game.world.setBounds(0, 0, 528, 528);
 
         this.map = this.game.add.tilemap('map');
         this.map.addTilesetImage('tiles');
@@ -38,12 +38,12 @@ class LaendleBomber {
         this.layerBlocks = this.map.createLayer('blocks');
         this.layerBlocks.resizeWorld();
 
-        this.map.setCollisionBetween(0, 10);
-        this.map.setCollisionBetween(0, 34);
+        this.map.setCollision(10, true, this.layerWalls);
+        this.map.setCollision(34, true, this.layerBlocks);
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.player = this.game.add.sprite(10, 10, 'player');
+        this.player = this.game.add.sprite(33, 33, 'player');
 
         this.game.physics.enable(this.player);
         //this.player.body.gravity.x = 1;
