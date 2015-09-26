@@ -5,6 +5,7 @@
 
 class Player extends ConcreteObservable implements GameObject {
 
+
     sprite:Phaser.Sprite;
     id:string;
     dead:boolean = false;
@@ -51,6 +52,11 @@ class Player extends ConcreteObservable implements GameObject {
     die():void {
         this.dead = true;
         this.sprite.tint = 0xff0000;
-        this.notifyObservers("die", {id: this});
+        this.sprite.body.velocity.x = 0;
+        this.sprite.body.velocity.y = 0;
+    }
+
+    burned():void {
+        this.die();
     }
 }
