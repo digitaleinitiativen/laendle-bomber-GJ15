@@ -68,7 +68,7 @@ class Game implements Observer, GameObject {
         this.player.registerObserver(this);
 
         this.game.game.input.keyboard.onDownCallback = (e:KeyboardEvent) => {
-            if (e.keyCode == Phaser.Keyboard.SPACEBAR) {
+            if (e.keyCode == Phaser.Keyboard.SPACEBAR && !this.player.dead) {
                 var tilePos = Game.calculateTilePosition(this.map, this.player.getXCentral(), this.player.getYCentral());
                 this.player.putBomb(tilePos.x, tilePos.y);
             }
@@ -93,6 +93,11 @@ class Game implements Observer, GameObject {
     }
 
     playerDies(id:string) {
+        if(id == this.player.id) {
+            this.player.die();
+            return;
+        }
+
         var player = this.objects[id];
         if(player instanceof Player) {
             player.die();
