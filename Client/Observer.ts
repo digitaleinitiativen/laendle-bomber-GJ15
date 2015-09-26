@@ -1,3 +1,3 @@
 interface Observer {
-    update (type : string, arg:any);
+    onObservedEvent (type : string, arg:any);
 }

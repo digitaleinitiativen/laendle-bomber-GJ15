@@ -26,7 +26,7 @@ class ConcreteObservable implements Observable {
     notifyObservers (type : string, arg : any) : void {
 
         this.observers.forEach((observer : Observer)=> {
-            observer.update(type, arg);
+            observer.onObservedEvent(type, arg);
         });
     }
 }

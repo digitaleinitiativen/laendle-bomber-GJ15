@@ -1,7 +1,14 @@
 ///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="app.ts"/>
 
-class Bomb extends Phaser.Sprite{
+class Bomb {
+    sprite:Phaser.Sprite;
+    time:number;
+    owner:string;
 
-    time : number;
+    constructor(sprite:Phaser.Sprite, time:number, owner:string) {
+        this.sprite = sprite;
+        this.time = time;
+        this.owner = owner;
+    }
 }
