@@ -87,11 +87,11 @@ class Game implements Observer, GameObject {
     }
 
     deletePlayer(id:string) {
-
+        this.objects[id].delete();
+        delete(this.objects[id]);
     }
 
     setPosition(id:string, position:any) {
-        console.log("Position Change", position);
         this.objects[id].updatePosition(position);
     }
 
@@ -126,6 +126,9 @@ class Game implements Observer, GameObject {
 
     isDecayed():boolean {
         return false;
+    }
+
+    delete():void {
     }
 
 }

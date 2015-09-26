@@ -3,6 +3,7 @@
 
 class Bomb implements GameObject {
 
+
     id: string;
     sprite:Phaser.Sprite;
     time:number;
@@ -33,5 +34,9 @@ class Bomb implements GameObject {
 
     isDecayed():boolean {
         return this.remove;
+    }
+
+    delete():void {
+        this.sprite.destroy();
     }
 }

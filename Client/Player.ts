@@ -5,14 +5,6 @@
 
 class Player extends ConcreteObservable implements GameObject {
 
-    onUpdate():void {
-
-    }
-
-    isDecayed():boolean {
-        return false;
-    }
-
     sprite:Phaser.Sprite;
     id:string;
 
@@ -42,4 +34,18 @@ class Player extends ConcreteObservable implements GameObject {
     getPosition() : any {
         return {x: this.sprite.x, y: this.sprite.y};
     }
+
+    onUpdate():void {
+
+    }
+
+    isDecayed():boolean {
+        return false;
+    }
+
+    delete():void {
+        this.sprite.destroy();
+    }
+
+
 }

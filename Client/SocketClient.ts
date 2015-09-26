@@ -31,16 +31,20 @@ class SocketClient implements Observer {
             console.log(data);
             var id = data.id;
             this.game.createSelf(id);
-            for(var playerId in data.players) {
-                this.game.createPlayer(playerId);
+
+            for(var key in data.players) {
+                console.log("PlayerID", data.players[key]);
+                this.game.createPlayer(data.players[key]);
             }
         });
         this.socket.on('player-left', (identifier) => {
             this.game.deletePlayer(identifier);
         });
         this.socket.on('new-player', (identifier) => {
+            console.log("New Player", identifier);
             this.game.createPlayer(identifier);
         });
+
         this.socket.on('player-moves', ({identifier, position}) => {
             this.game.setPosition(identifier, position);
         })
