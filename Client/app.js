@@ -4,8 +4,8 @@
 ///<reference path="SocketClient.ts"/>
 ///<reference path="Observer.ts"/>
 ///<reference path="Bomb.ts"/>
-class LaendleBomber {
-    constructor() {
+var LaendleBomber = (function () {
+    function LaendleBomber() {
         this.game = new Phaser.Game(800, 800, Phaser.AUTO, 'content', {
             preload: this.preload,
             create: this.create,
@@ -13,14 +13,14 @@ class LaendleBomber {
             render: this.render
         });
     }
-    preload() {
+    LaendleBomber.prototype.preload = function () {
         console.log(this.game);
         this.game.load.image('player', 'assets/player.png');
         this.game.load.spritesheet('bomb', 'assets/bomb.png', 17, 17);
         this.game.load.tilemap('map', 'assets/maps/BombMap1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/maps/BombMap1.png');
-    }
-    create() {
+    };
+    LaendleBomber.prototype.create = function () {
         this.game2 = new Game();
         this.game2.phaser = this.game;
         this.socketClient = new SocketClient();
@@ -55,8 +55,8 @@ class LaendleBomber {
                 callee.player.putBomb(tilePos.x, tilePos.y);
             }
         };
-    }
-    update() {
+    };
+    LaendleBomber.prototype.update = function () {
         this.game.physics.arcade.collide(this.player.sprite, this.layerWalls);
         this.game.physics.arcade.collide(this.player.sprite, this.layerBlocks);
         if (this.cursors.left.isDown) {
@@ -75,11 +75,12 @@ class LaendleBomber {
             this.player.sprite.body.velocity.y = 100;
             this.player.sprite.body.velocity.x = 0;
         }
-    }
-    render() {
-    }
-}
-window.onload = () => {
+    };
+    LaendleBomber.prototype.render = function () {
+    };
+    return LaendleBomber;
+})();
+window.onload = function () {
     var game = new LaendleBomber();
 };
 function guid() {

@@ -1,18 +1,19 @@
 ///<reference path="Observer.ts"/>
-class ConcreteObservable {
-    constructor() {
+var ConcreteObservable = (function () {
+    function ConcreteObservable() {
         this.observers = [];
     }
-    registerObserver(observer) {
+    ConcreteObservable.prototype.registerObserver = function (observer) {
         this.observers.push(observer);
-    }
-    removeObserver(observer) {
+    };
+    ConcreteObservable.prototype.removeObserver = function (observer) {
         this.observers.splice(this.observers.indexOf(observer), 1);
-    }
-    notifyObservers(type, arg) {
-        this.observers.forEach((observer) => {
+    };
+    ConcreteObservable.prototype.notifyObservers = function (type, arg) {
+        this.observers.forEach(function (observer) {
             observer.onObservedEvent(type, arg);
         });
-    }
-}
+    };
+    return ConcreteObservable;
+})();
 //# sourceMappingURL=Observable.js.map
