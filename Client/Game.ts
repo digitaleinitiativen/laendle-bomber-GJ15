@@ -1,8 +1,8 @@
-﻿
-class Game {
+﻿class Game {
     constructor() {
-         }
-    xxx() {
+    }
+
+    calculateTilePosition(x : number, y : number) {
 
     }
 }

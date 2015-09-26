@@ -1,11 +1,8 @@
 ///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Player.ts"/>
 ///<reference path="Game.ts"/>
-interface ILaendleBomber {
-    xxx(): void;
-}
 
-class LaendleBomber implements ILaendleBomber{
+class LaendleBomber {
 
     constructor() {
         this.game = new Phaser.Game(800, 800, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update, render: this.render });
@@ -28,7 +25,7 @@ class LaendleBomber implements ILaendleBomber{
     }
 
     create() {
-        this.g = new Game1();
+        this.g = new Game();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -84,7 +81,7 @@ class LaendleBomber implements ILaendleBomber{
         }
 
         if(this.spacebar.isDown) {
-            this.methods.calculateTilePosition(this.player.x, this.player.y).bind(this);
+            this.g.calculateTilePosition(this.player.x, this.player.y);
         }
     }
 
