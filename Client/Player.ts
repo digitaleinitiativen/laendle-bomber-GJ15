@@ -21,6 +21,6 @@ class Player extends ConcreteObservable {
     }
 
     putBomb(x, y) {
-        this.notifyObservers("bomb", {id: this.id, x : x, y : y, time: 10});
+        this.notifyObservers("bomb", {id: this.id, x : x, y : y, time: 100});
     }
 }
