@@ -1,7 +1,11 @@
 ///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Player.ts"/>
+///<reference path="Game1.ts"/>
+interface ILaendleBomber {
+    xxx(): void;
+}
 
-class LaendleBomber {
+class LaendleBomber implements ILaendleBomber{
 
     constructor() {
         this.game = new Phaser.Game(800, 800, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update, render: this.render });
@@ -14,6 +18,7 @@ class LaendleBomber {
     layerFloor: Phaser.TilemapLayer;
     cursors: Phaser.CursorKeys;
     player: Player;
+    g: Game1;
 
     preload() {
         this.game.load.image('player', 'assets/player.png');
@@ -22,6 +27,7 @@ class LaendleBomber {
     }
 
     create() {
+        this.g = new Game1();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.world.setBounds(0, 0, 528, 528);
@@ -74,11 +80,17 @@ class LaendleBomber {
             this.player.body.velocity.y = 100;
             this.player.body.velocity.x = 0;
         }
+
+        this.g.xxx();
     }
 
     render() {
 
-    }
+    } 
+
+    xxx() {
+
+    } 
 }
 
 window.onload = () => {
