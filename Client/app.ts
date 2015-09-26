@@ -1,4 +1,4 @@
-///<reference path="phaser/phaser.d.ts"/>
+﻿///<reference path="phaser/phaser.d.ts"/>
 ///<reference path="Player.ts"/>
 
 class LaendleBomber {
@@ -29,6 +29,11 @@ class LaendleBomber {
         this.map = this.game.add.tilemap('map');
         this.map.addTilesetImage('tiles');
 
+        this.map.setCollisionBetween(0, 30);
+        this.map.setCollisionBetween(0, 10);
+        this.map.setCollisionBetween(0, 34);
+        this.map.setCollision(10);
+
         this.layerFloor = this.map.createLayer('floor');
         this.layerFloor.resizeWorld();
 
@@ -37,13 +42,12 @@ class LaendleBomber {
 
         this.layerBlocks = this.map.createLayer('blocks');
         this.layerBlocks.resizeWorld();
-
-        this.map.setCollisionBetween(0, 10);
-        this.map.setCollisionBetween(0, 34);
+       
+        
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.player = this.game.add.sprite(10, 10, 'player');
+        this.player = this.game.add.sprite(32, 32, 'player');
 
         this.game.physics.enable(this.player);
         //this.player.body.gravity.x = 1;
@@ -51,13 +55,15 @@ class LaendleBomber {
         this.game.camera.follow(this.player);
 
         this.player.body.bounce.set(0.0);
-        this.player.body.tilePadding.set(32);
+        //this.player.body.tilePadding.set(32);
+        this.player.body.bounce.y = 0.2;
+        this.player.body.linearDamping = 1;
         this.player.body.collideWorldBounds = true;
     }
 
     update() {
         this.game.physics.arcade.collide(this.player, this.layerWalls);
-        this.game.physics.arcade.collide(this.player, this.layerBlocks);
+        //this.game.physics.arcade.collide(this.player, this.layerBlocks);
 
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x = -100;
@@ -77,7 +83,7 @@ class LaendleBomber {
     }
 
     render() {
-
+        this.game.debug.bodyInfo(this.player, 10, 530);
     }
 }
 

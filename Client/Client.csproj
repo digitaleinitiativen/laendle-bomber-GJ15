@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.css" />
-    <Content Include="assets\gridtiles.png" />
+    <Content Include="assets\maps\BombMap1.png" />
     <Content Include="assets\player.png" />
     <Content Include="index.html" />
     <Content Include="phaser\phaser.js" />
@@ -38,7 +38,8 @@
     <TypeScriptCompile Include="Player.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\tilemap1.json" />
+    <Content Include="assets\maps\BombMap1.json" />
+    <Content Include=".bowerrc" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
