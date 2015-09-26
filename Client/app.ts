@@ -27,19 +27,20 @@
         this.layerWalls = this.map.createLayer('walls');
         this.layerWalls.resizeWorld();
 
-        this.map.setCollisionBetween(1, 12);
+        this.map.setCollisionBetween(1, 20);
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.player = this.game.add.sprite(0, 0, 'player');
+        this.player = this.game.add.sprite(10, 10, 'player');
 
         this.game.physics.enable(this.player);
         this.player.body.gravity.x = 1;
         this.player.body.gravity.y = 1;
         this.game.camera.follow(this.player);
 
-        this.player.body.bounce.set(0.6);
+        this.player.body.bounce.set(0.0);
         this.player.body.tilePadding.set(32);
+        this.player.body.collideWorldBounds = true;
     }
 
     update() {
