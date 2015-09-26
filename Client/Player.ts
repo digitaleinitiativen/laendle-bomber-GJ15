@@ -28,7 +28,23 @@ class Player extends ConcreteObservable implements GameObject {
         this.notifyObservers("bomb", {id: this.id, x: x, y: y, time: 100});
     }
 
-    updatePosition(position:any) {
+    updatePosition(position: any) {
+        if (this.sprite.x < position.x) {
+            this.sprite.body.velocity.x = +100;
+            this.sprite.body.velocity.y = 0;
+        } else if(this.sprite.x > position.x) {
+            this.sprite.body.velocity.x = -100;
+            this.sprite.body.velocity.y = 0;
+        }
+
+        if (this.sprite.y < position.y) {
+            this.sprite.body.velocity.y = 100;
+            this.sprite.body.velocity.x = 0;
+        } else if(this.sprite.y > position.y) {
+            this.sprite.body.velocity.y = -100;
+            this.sprite.body.velocity.x = 0;
+        }
+
         this.sprite.x = position.x;
         this.sprite.y = position.y;
     }
@@ -58,5 +74,8 @@ class Player extends ConcreteObservable implements GameObject {
 
     burned():void {
         this.die();
+    }
+    getSprite() {
+        return this.sprite;
     }
 }

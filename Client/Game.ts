@@ -123,10 +123,10 @@ class Game implements Observer, GameObject {
 
         for (var key in this.objects) {
             if(key != bomb) {
-                var object = this.objects[key];
-                var xy = Game.calculateTilePosition(this.game.game2.map, object.getPosition().x, object.getPosition().y);
-                if (xy.x == x && xy.y == y)
-                {
+            var object = this.objects[key];
+            var xy = Game.calculateTilePosition(this.game.game2.map, object.getPosition().x, object.getPosition().y);
+            if (xy.x == x && xy.y == y)
+            {
                     object.burned();
                 }
             }
@@ -157,6 +157,10 @@ class Game implements Observer, GameObject {
             if(object.isDecayed()) {
                 delete(this.objects[key]);
             }
+
+            this.game.game.physics.arcade.collide(object.getSprite(), this.game.layerWalls);
+            this.game.game.physics.arcade.collide(object.getSprite(), this.game.layerBlocks);
+
         }
 
     }
@@ -174,6 +178,10 @@ class Game implements Observer, GameObject {
     }
 
     getPosition(): any {
+        return null;
+    }
+
+    getSprite() {
         return null;
     }
 
