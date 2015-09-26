@@ -142,6 +142,10 @@ class Game implements Observer, GameObject {
             if(object.isDecayed()) {
                 delete(this.objects[key]);
             }
+
+            this.game.game.physics.arcade.collide(object.getSprite(), this.game.layerWalls);
+            this.game.game.physics.arcade.collide(object.getSprite(), this.game.layerBlocks);
+
         }
 
     }
@@ -159,6 +163,10 @@ class Game implements Observer, GameObject {
     }
 
     getPosition(): any {
+        return null;
+    }
+
+    getSprite() {
         return null;
     }
 }

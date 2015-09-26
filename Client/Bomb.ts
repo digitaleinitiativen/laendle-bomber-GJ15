@@ -77,4 +77,8 @@ class Bomb implements GameObject {
     getPosition(): any {
         return { x: this.sprite.x, y: this.sprite.y };
     }
+
+    getSprite() {
+        return this.sprite;
+    }
 }
