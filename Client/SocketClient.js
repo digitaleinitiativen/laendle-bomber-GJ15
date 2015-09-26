@@ -1,13 +1,8 @@
 ///<reference path="Observer.ts"/>
-
-class SocketClient implements Observer {
-
-    socket: any;
-    constructor() {
-        
+var SocketClient = (function () {
+    function SocketClient() {
     }
-
-    init() {
+    SocketClient.prototype.init = function () {
         this.socket = io('', { path: '/api/game', transports: ['polling'] });
         this.socket.on('connect', function () {
             console.log('connected');
@@ -21,16 +16,14 @@ class SocketClient implements Observer {
         this.socket.on('error', function (data) {
             console.log('connected');
         });
-    }
-
-    onObservedEvent(type: string, arg: any) {
-
-
+    };
+    SocketClient.prototype.onObservedEvent = function (type, arg) {
         switch (type) {
             case "bomb":
                 console.log("Bomb placed", arg);
                 break;
         }
-    }
-
-}
+    };
+    return SocketClient;
+})();
+//# sourceMappingURL=SocketClient.js.map

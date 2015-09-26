@@ -260,6 +260,3 @@ crashlytics.properties
 crashlytics-build.properties
 
 # Created by .ignore support plugin (hsz.mobi)
-Client/Bomb.js
-Client/Observable.js
-Client/Observer.js
