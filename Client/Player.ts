@@ -7,6 +7,7 @@ class Player extends ConcreteObservable implements GameObject {
 
     sprite:Phaser.Sprite;
     id:string;
+    dead:boolean = false;
 
     constructor(id:string, sprite:Phaser.Sprite) {
         super();
@@ -14,16 +15,16 @@ class Player extends ConcreteObservable implements GameObject {
         this.sprite = sprite;
     }
 
-    getXCentral() : number {
+    getXCentral():number {
         return this.sprite.x + this.sprite.width / 2;
     }
 
-    getYCentral() : number {
+    getYCentral():number {
         return this.sprite.y + this.sprite.height / 2;
     }
 
     putBomb(x, y) {
-        this.notifyObservers("bomb", {id: this.id, x : x, y : y, time: 100});
+        this.notifyObservers("bomb", {id: this.id, x: x, y: y, time: 100});
     }
 
     updatePosition(position:any) {
@@ -31,7 +32,7 @@ class Player extends ConcreteObservable implements GameObject {
         this.sprite.y = position.y;
     }
 
-    getPosition() : any {
+    getPosition():any {
         return {x: this.sprite.x, y: this.sprite.y};
     }
 
@@ -47,5 +48,9 @@ class Player extends ConcreteObservable implements GameObject {
         this.sprite.destroy();
     }
 
-
+    die():void {
+        this.dead = true;
+        this.sprite.tint = 0xff0000;
+        this.notifyObservers("die", {id: this});
+    }
 }

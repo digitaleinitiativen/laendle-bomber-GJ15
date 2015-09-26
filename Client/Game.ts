@@ -92,6 +92,13 @@ class Game implements Observer, GameObject {
         delete(this.objects[id]);
     }
 
+    playerDies(id:string) {
+        var player = this.objects[id];
+        if(player instanceof Player) {
+            player.die();
+        }
+    }
+
     setPosition(id:string, position:any) {
         this.objects[id].updatePosition(position);
     }
