@@ -131,4 +131,8 @@ class Game implements Observer, GameObject {
     delete():void {
     }
 
+
+    updatePosition(position: any) {
+       
+    }
 }

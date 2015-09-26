@@ -39,4 +39,8 @@ class Bomb implements GameObject {
     delete():void {
         this.sprite.destroy();
     }
+
+
+    updatePosition(position: any) {
+    }
 }

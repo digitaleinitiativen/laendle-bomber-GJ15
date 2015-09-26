@@ -1,5 +1,6 @@
 interface GameObject {
     onUpdate() : void;
     isDecayed() : boolean;
-    delete() : void;
+    delete(): void;
+    updatePosition(position: any): void;
 }
