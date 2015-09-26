@@ -4,6 +4,7 @@
 ///<reference path="GameObject.ts"/>
 ///<reference path="Player.ts"/>
 ///<reference path="SocketClient.ts"/>
+///<reference path="app.ts"/>
 
 class Game implements Observer, GameObject {
 
@@ -100,6 +101,10 @@ class Game implements Observer, GameObject {
         var bomb = new Bomb(this.game, Game.guid(), this.game.game.add.sprite(tileCenter.x, tileCenter.y, "bomb"), time, owner);
 
         this.objects[bomb.id] = bomb;
+    }
+
+    removeTile(x:number, y:number) {
+        this.map.removeTile(x, y, this.game.layerBlocks);
     }
 
     onObservedEvent(type:string, arg:any) {
